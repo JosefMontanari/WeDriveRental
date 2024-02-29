@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeDriveRental.Data;
 
@@ -11,9 +12,11 @@ using WeDriveRental.Data;
 namespace WeDriveRental.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240229095028_relations")]
+    partial class relations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,6 +238,7 @@ namespace WeDriveRental.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("BookedUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CarId")
@@ -249,7 +253,7 @@ namespace WeDriveRental.Migrations
 
                     b.HasIndex("BookedUserId");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("Booking");
                 });
 
             modelBuilder.Entity("WeDriveRental.Models.RentalCar", b =>
@@ -342,7 +346,9 @@ namespace WeDriveRental.Migrations
 
                     b.HasOne("WeDriveRental.Data.ApplicationUser", "BookedUser")
                         .WithMany("UserBookings")
-                        .HasForeignKey("BookedUserId");
+                        .HasForeignKey("BookedUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("BookedCar");
 
