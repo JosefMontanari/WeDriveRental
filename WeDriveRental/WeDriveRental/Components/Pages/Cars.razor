@@ -1,0 +1,23 @@
+﻿@page "/cars"
+@using WeDriveRental.Services
+@inject IRentalCarService RentalCarService
+@rendermode InteractiveAuto
+<h3>Cars</h3>
+
+@if(RentalCarService.RentalCars != null)
+{
+	@foreach(var car in RentalCarService.RentalCars)
+
+	{
+	<h1>@car.Name</h1>
+	}
+
+
+}
+
+@code {
+	protected override async Task OnInitializedAsync()
+	{
+		await RentalCarService.GetRentalCars();
+	}
+}

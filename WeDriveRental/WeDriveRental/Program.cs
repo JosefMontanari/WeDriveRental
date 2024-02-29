@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using WeDriveRental.Components;
 using WeDriveRental.Components.Account;
 using WeDriveRental.Data;
+using WeDriveRental.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 	.AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+builder.Services.AddScoped<IRentalCarService, RentalCarService>();
 
 var app = builder.Build();
 

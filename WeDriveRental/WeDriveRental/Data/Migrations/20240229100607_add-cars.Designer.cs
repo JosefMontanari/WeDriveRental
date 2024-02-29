@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeDriveRental.Data;
 
@@ -11,9 +12,11 @@ using WeDriveRental.Data;
 namespace WeDriveRental.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240229100607_add-cars")]
+    partial class addcars
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,17 +234,14 @@ namespace WeDriveRental.Migrations
                     b.Property<int>("BookedCarId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("BookedDates")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("BookedUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CarId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -315,7 +315,7 @@ namespace WeDriveRental.Migrations
                         {
                             Id = 4,
                             Description = "Sportback 35 TFSI 150hk",
-                            ImageUrl = "https://kvdbil-object-images.imgix.net/7193409/953141.jpg?w=1920&auto=format",
+                            ImageUrl = "Url",
                             IsAvailable = false,
                             Name = "Audi A3",
                             Price = 999m
