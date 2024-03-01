@@ -1,0 +1,29 @@
+﻿@page "/BookRentalCar/{id:int}"
+@using WeDriveRental.Models
+@using WeDriveRental.Services
+@inject IRentalCarService RentalCarService
+@inject NavigationManager navigationManager
+@rendermode InteractiveServer
+
+<h3>BookRentalCar</h3>
+
+@if(Car != null)
+{
+<h1>@Car.Name</h1>
+<p>hejhejehjeh</p>
+}
+
+@code {
+	[Parameter]
+	public int Id { get; set; }
+	public RentalCar Car { get; set; }
+
+
+
+	protected async override void OnParametersSet()
+	{
+		Car = await RentalCarService.GetSingleRentalCar(Id);
+		StateHasChanged();
+
+	}
+}

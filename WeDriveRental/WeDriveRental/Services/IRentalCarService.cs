@@ -9,10 +9,10 @@ namespace WeDriveRental.Services
 		public List<Booking>? Bookings { get; set; }
 
 		public Task<List<Booking>> GetBookings();
-		public Task<List<RentalCar?>> GetRentalCars();
+		public Task GetRentalCars();
 
 		Task<Booking?> GetSingleBooking(int id);
-		Task<RentalCar?> GetSingleRentalCar(int id);
+		Task<RentalCar>? GetSingleRentalCar(int id);
 		Task<bool> IsCarAvailable(int id, DateTime requestedDateStart, DateTime requestedDateEnd);
 		Task<RentalCar> EditRentalCar(RentalCar car, int id);
 		void DeleteRentalCar(int id);

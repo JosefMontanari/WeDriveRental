@@ -5,17 +5,18 @@
 @inject NavigationManager navigationManager
 @rendermode InteractiveServer
 
+
 @if(RentalCarService.RentalCars != null)
 {	
 	<div class="row">
-	@foreach(var car in RentalCars)
+	@foreach(var car in RentalCarService.RentalCars)
 	{
-		<div class="card col-4">
+		<div class="card col-4 d-flex flex-column">
 			<h5>@car.Name</h5>
 			<img class="card-img" src="@car.ImageUrl"/>
 			<p>@car.Description</p>
 			<p>Price per day: <span>@car.Price</span></p>
-			<button @onclick="GoToBookCar" class="btn btn-primary">Book!</button>
+			<button @onclick="() => GoToBookCar(car.Id)"class="btn btn-primary mt-auto">Book!</button>
 		</div>
 	}
 
@@ -23,14 +24,15 @@
 }
 
 @code {
-	public List<RentalCar>? RentalCars { get; set; }
 	protected override async Task OnInitializedAsync()
 	{
-		RentalCars = await RentalCarService.GetRentalCars();
+		RentalCarService.GetRentalCars();
+
 	}
 
-	void GoToBookCar()
+	void GoToBookCar(int id)
 	{
+		navigationManager.NavigateTo($"BookRentalCar/{id}");
 		
 	}
 }

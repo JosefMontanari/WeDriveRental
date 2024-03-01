@@ -98,16 +98,12 @@ namespace WeDriveRental.Services
 			return null;
 		}
 
-		public async Task<List<RentalCar?>> GetRentalCars()
+		public async Task GetRentalCars()
 		{
 			RentalCars = await _context.Cars
 				.Include(x => x.CarBookings)
 				.ToListAsync();
-			if (RentalCars != null)
-			{
-				return RentalCars;
-			}
-			return null;
+
 		}
 
 		public async Task<Booking?> GetSingleBooking(int id)
@@ -123,7 +119,7 @@ namespace WeDriveRental.Services
 			return booking;
 		}
 
-		public async Task<RentalCar?> GetSingleRentalCar(int id)
+		public async Task<RentalCar>? GetSingleRentalCar(int id)
 		{
 			RentalCar? car = await _context.Cars
 				.Include(x => x.CarBookings)
