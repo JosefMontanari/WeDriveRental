@@ -1,23 +1,36 @@
 ﻿@page "/cars"
+@using WeDriveRental.Models
 @using WeDriveRental.Services
 @inject IRentalCarService RentalCarService
-@rendermode InteractiveAuto
-<h3>Cars</h3>
+@inject NavigationManager navigationManager
+@rendermode InteractiveServer
 
 @if(RentalCarService.RentalCars != null)
-{
-	@foreach(var car in RentalCarService.RentalCars)
-
+{	
+	<div class="row">
+	@foreach(var car in RentalCars)
 	{
-	<h1>@car.Name</h1>
+		<div class="card col-4">
+			<h5>@car.Name</h5>
+			<img class="card-img" src="@car.ImageUrl"/>
+			<p>@car.Description</p>
+			<p>Price per day: <span>@car.Price</span></p>
+			<button @onclick="GoToBookCar" class="btn btn-primary">Book!</button>
+		</div>
 	}
 
-
+	</div>
 }
 
 @code {
+	public List<RentalCar>? RentalCars { get; set; }
 	protected override async Task OnInitializedAsync()
 	{
-		await RentalCarService.GetRentalCars();
+		RentalCars = await RentalCarService.GetRentalCars();
+	}
+
+	void GoToBookCar()
+	{
+		
 	}
 }
